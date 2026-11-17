@@ -9,10 +9,10 @@ def metadata():
     return {
         "name": "车队部件寿命估计", "short": "fleet-weibull", "tagline": "保留尚未失效部件，用删失似然估计预防检修窗口",
         "client": "模拟客户：鹭湾公交机务组，96 辆公交车跟踪两种空气压缩机。",
-        "workflow": "机务组每月导出更换与在役记录，只对已坏件求平均寿命，再用统一里程安排检修。",
-        "pains": ["只看坏件会丢掉在役件的寿命信息", "不同压缩机型号被混在一个均值内", "检修里程未表达可靠度假设"],
+        "workflow": "机务组每月导出更换与在役记录，只对已坏件求平均寿命，再用统一里程安排检修。新型号先分期验收：锁定合格里程与最低存活率，逐期核对存活率，达标才批准放行。",
+        "pains": ["只看坏件会丢掉在役件的寿命信息", "不同压缩机型号被混在一个均值内", "反复查看曲线会让未收齐的批次被误判达标"],
         "upstream": "部件安装里程、失效更换里程与截止日仍在役里程", "downstream": "机务检修评审，人工结合安全规程安排检查。",
-        "entities": ["部件寿命样本", "可靠度估计", "机务简报计划"], "dataset_name": "鹭湾公交_压缩机寿命与在役截止.csv",
+        "entities": ["部件寿命样本", "可靠度估计", "分期放行验收", "机务简报计划"], "dataset_name": "鹭湾公交_压缩机寿命与在役截止.csv",
         "columns": [{"key": "asset", "label": "部件资产号", "type": "string"}, {"key": "model", "label": "型号", "type": "string"}, {"key": "km", "label": "观测运行里程", "type": "number"}, {"key": "failed", "label": "已失效1/在役0", "type": "number"}],
         "parameters": [{"key": "model", "label": "部件型号", "type": "select", "default": "AC-8", "options": [{"value": "AC-8", "label": "AC-8 螺杆机"}, {"value": "AC-12", "label": "AC-12 改进型"}]}, {"key": "reliability", "label": "目标可靠度", "type": "number", "default": 0.9, "min": 0.6, "max": 0.99}],
         "workbench_title": "删失样本与检修可靠度", "action_label": "拟合寿命曲线", "unit": "公里", "accent": "oklch(51% 0.13 35)", "style": "fleet-chart",

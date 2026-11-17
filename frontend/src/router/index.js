@@ -1,1 +1,5 @@
-export function route(){const [page='overview',id]=location.hash.replace(/^#\//,'').split('/');return {page,id};}
+export function route(){
+ const [path,query='']=location.hash.replace(/^#\//,'').split('?');
+ const [page='overview',id]=path.split('/');
+ return {page,id,params:Object.fromEntries(new URLSearchParams(query))};
+}
